@@ -1,6 +1,5 @@
 /* Paleta de Cores:
    Escola Principal: Azul Escuro (#003366), Amarelo (#FFCC00), Branco (#FFFFFF)
-   Calendário: Dias Úteis (Fundo Branco, Texto Azul Escuro), Fim de Semana (Fundo Azul Escuro, Texto Amarelo)
    Funcional: Verde para Livre (#1A9639), Vermelho para Bloqueado (#CC0000)
 */
 
@@ -10,7 +9,7 @@ body {
     background-color: #f4f4f9; /* Fundo suave */
 }
 
-/* 1. ESTILO DO TÍTULO E CABEÇALHO */
+/* 1. ESTILO DO TÍTULO E CABEÇALHO (CAIXA AZUL ESCURO/AMARELA) */
 header {
     text-align: center;
     margin-bottom: 30px;
@@ -24,14 +23,35 @@ header {
 
 header h1 {
     font-size: 2em;
-    margin-bottom: 5px;
+    margin-bottom: 10px;
     color: #FFFFFF;
 }
 
-header h2 {
-    font-size: 1.2em;
-    margin: 0;
-    color: #FFCC00; /* Amarelo no Mês/Ano */
+/* Estilo para a área do seletor e do título */
+#controle-mes {
+    text-align: center; /* Centraliza o seletor */
+    margin-top: 10px;
+}
+
+#seletor-mes {
+    padding: 8px 15px;
+    border: 2px solid #FFCC00; /* Borda Amarela */
+    border-radius: 5px;
+    background-color: #003366; /* Fundo Azul Escuro */
+    color: #FFFFFF;
+    font-size: 1.1em;
+    font-weight: bold;
+    cursor: pointer;
+    /* Remove a aparência padrão do sistema */
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+}
+
+/* Garante que o item desabilitado (Janeiro) tenha o estilo correto */
+#seletor-mes option:disabled {
+    color: #999;
+    background-color: #002244;
 }
 
 main {
@@ -75,14 +95,14 @@ main {
     border: 1px solid #ddd;
 }
 
-/* 🆕 DIAS ÚTEIS (SEGUNDA-SEXTA) */
+/* DIAS ÚTEIS (SEGUNDA-SEXTA) */
 .dia-celula:not(.fim-semana):not(.vazio) {
     background-color: #FFFFFF; /* Fundo Branco */
     color: #003366; /* Número Azul Escuro */
     border: 1px solid #eee;
 }
 
-.dia-celula:hover:not(.vazio):not(.fim-semana):not(.tem-bloqueio) {
+.dia-celula:hover:not(.vazio):not(.fim-semana):not(.tem-bloqueio):not(.feriado) {
     background-color: #f0f0f0;
 }
 
@@ -92,12 +112,21 @@ main {
     cursor: default;
 }
 
-/* 🛑 NOVO: FIM DE SEMANA (SÁBADO/DOMINGO) */
+/* 🛑 FIM DE SEMANA (SÁBADO/DOMINGO) */
 .dia-celula.fim-semana {
     background-color: #003366; /* Fundo Azul Escuro */
     color: #FFCC00; /* Número Amarelo */
     cursor: default;
     border: 1px solid #003366;
+}
+
+/* 🛑 ESTILO PARA FERIADOS */
+.dia-celula.feriado {
+    background-color: #FFCC00; /* Amarelo de Destaque */
+    color: #003366; /* Texto Azul Escuro */
+    border: 2px solid #003366;
+    cursor: not-allowed;
+    pointer-events: none; /* Bloqueia o clique */
 }
 
 /* 🟥 Estilo para dias de bloqueio FIXO (Técnico) */
@@ -134,7 +163,7 @@ main {
     font-weight: 500;
 }
 
-/* 🟥 Bloqueio Técnico/Agendado - VERMELHO */
+/* 🟥 Bloqueio Técnico/Feriado/Agendado - VERMELHO */
 .horario.bloqueio-tecnico {
     background-color: #ffcccc;
     color: #CC0000;
@@ -187,7 +216,6 @@ main {
 }
 
 #modal-reserva form button {
-    /* Estilo padrão do botão */
     padding: 10px 15px;
     border-radius: 5px;
     font-weight: bold;

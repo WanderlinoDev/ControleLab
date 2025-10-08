@@ -4,13 +4,18 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Controle LAB | Agendamento Mensal</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="style.css"> 
 </head>
 <body>
 
     <header>
         <h1>RESERVA DE LABORATÓRIO DE INFORMÁTICA</h1>
-        <h2 id="nome-mes">CARREGANDO...</h2>
+        
+        <div id="controle-mes">
+            <select id="seletor-mes" onchange="trocarMes(this.value)">
+                </select>
+            
+            </div>
     </header>
     
     <main>
@@ -24,15 +29,14 @@
                 <div>Sex</div>
                 <div>Sáb</div>
             </div>
-            <div id="dias-do-mes"></div>
+            <div id="dias-do-mes"></div> 
         </div>
         
         <div id="horarios-detalhe">
             <h3>Selecione um dia no calendário.</h3>
             <p>Clique em um dia para ver a disponibilidade de horários.</p>
             
-            <div id="lista-horarios">
-                </div>
+            <div id="lista-horarios"></div> 
         </div>
     </main>
     
@@ -51,6 +55,6 @@
         </form>
     </div>
 
-    <script src="script.js" defer></script>
+    <script src="script.js" defer></script> 
 </body>
 </html>
