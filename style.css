@@ -1,0 +1,220 @@
+/* Paleta de Cores:
+   Escola Principal: Azul Escuro (#003366), Amarelo (#FFCC00), Branco (#FFFFFF)
+   Calendário: Dias Úteis (Fundo Branco, Texto Azul Escuro), Fim de Semana (Fundo Azul Escuro, Texto Amarelo)
+   Funcional: Verde para Livre (#1A9639), Vermelho para Bloqueado (#CC0000)
+*/
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    padding: 20px;
+    background-color: #f4f4f9; /* Fundo suave */
+}
+
+/* 1. ESTILO DO TÍTULO E CABEÇALHO */
+header {
+    text-align: center;
+    margin-bottom: 30px;
+    padding: 15px 20px;
+    background-color: #003366; /* Fundo Azul Escuro */
+    color: white;
+    border-radius: 10px;
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+    border-bottom: 5px solid #FFCC00; /* Linha de Destaque Amarela */
+}
+
+header h1 {
+    font-size: 2em;
+    margin-bottom: 5px;
+    color: #FFFFFF;
+}
+
+header h2 {
+    font-size: 1.2em;
+    margin: 0;
+    color: #FFCC00; /* Amarelo no Mês/Ano */
+}
+
+main {
+    display: flex; 
+    gap: 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+/* 📅 ESTILO DO CALENDÁRIO (Lado Esquerdo) */
+#calendario-grid {
+    flex: 1; 
+    background-color: white;
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+
+#dias-da-semana, #dias-do-mes {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr); 
+    text-align: center;
+    gap: 5px;
+}
+
+#dias-da-semana div {
+    font-weight: bold;
+    color: #003366; /* Azul Escuro no cabeçalho da semana */
+    padding: 10px 5px;
+}
+
+/* Estilo da Célula (Dia) */
+.dia-celula {
+    padding: 15px 5px;
+    border-radius: 4px;
+    font-size: 1.2em;
+    font-weight: bold;
+    min-height: 80px;
+    cursor: pointer;
+    transition: background-color 0.2s, border 0.2s;
+    border: 1px solid #ddd;
+}
+
+/* 🆕 DIAS ÚTEIS (SEGUNDA-SEXTA) */
+.dia-celula:not(.fim-semana):not(.vazio) {
+    background-color: #FFFFFF; /* Fundo Branco */
+    color: #003366; /* Número Azul Escuro */
+    border: 1px solid #eee;
+}
+
+.dia-celula:hover:not(.vazio):not(.fim-semana):not(.tem-bloqueio) {
+    background-color: #f0f0f0;
+}
+
+.dia-celula.vazio {
+    background-color: #fff;
+    border: none;
+    cursor: default;
+}
+
+/* 🛑 NOVO: FIM DE SEMANA (SÁBADO/DOMINGO) */
+.dia-celula.fim-semana {
+    background-color: #003366; /* Fundo Azul Escuro */
+    color: #FFCC00; /* Número Amarelo */
+    cursor: default;
+    border: 1px solid #003366;
+}
+
+/* 🟥 Estilo para dias de bloqueio FIXO (Técnico) */
+.dia-celula.tem-bloqueio {
+    background-color: #ffdddd; /* Vermelho CLARO para avisar */
+    border: 2px solid #CC0000;
+    color: #CC0000;
+}
+
+.dia-celula.selecionado {
+    border: 3px solid #FFCC00; /* Borda Amarela ao ser clicado */
+    box-shadow: 0 0 10px rgba(255, 204, 0, 0.8);
+}
+
+
+/* ⏱️ ESTILO DOS DETALHES DO DIA (Lado Direito) */
+#horarios-detalhe {
+    flex: 1; 
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+
+#horarios-detalhe h3 {
+    color: #003366;
+    margin-top: 0;
+}
+
+#lista-horarios div {
+    padding: 12px;
+    margin-bottom: 8px;
+    border-radius: 4px;
+    font-weight: 500;
+}
+
+/* 🟥 Bloqueio Técnico/Agendado - VERMELHO */
+.horario.bloqueio-tecnico {
+    background-color: #ffcccc;
+    color: #CC0000;
+    border: 1px solid #CC0000;
+}
+
+/* 🟦 Agendado (por outro professor) */
+.horario.agendado {
+    background-color: #cce0ff;
+    color: #003366; 
+    border: 1px solid #003366;
+}
+
+/* 🟩 Livre - VERDE */
+.horario.livre {
+    background-color: #e8ffe8;
+    color: #1A9639; 
+    cursor: pointer;
+    border: 1px solid #1A9639;
+    transition: background-color 0.1s;
+}
+
+.horario.livre:hover {
+    background-color: #d6f2d6;
+}
+
+.horario.intervalo {
+    background-color: #ddd;
+    color: #666;
+    text-align: center;
+}
+
+/* 🖼️ ESTILO DO MODAL DE AGENDAMENTO */
+#modal-reserva {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 30px;
+    background-color: #FFFFFF; /* Fundo Branco */
+    border: 1px solid #003366; /* Contorno Azul Escuro */
+    box-shadow: 0 0 15px rgba(0, 51, 102, 0.5); /* Sombreamento Azul Escuro */
+    z-index: 1000;
+    border-radius: 8px;
+}
+
+#modal-reserva h3 {
+    color: #003366;
+}
+
+#modal-reserva form button {
+    /* Estilo padrão do botão */
+    padding: 10px 15px;
+    border-radius: 5px;
+    font-weight: bold;
+    cursor: pointer;
+    margin-right: 10px;
+    transition: background-color 0.2s, box-shadow 0.2s;
+}
+
+/* Botão Confirmar Agendamento */
+#form-reserva button[type="submit"] {
+    background-color: #003366; /* Fundo Azul Escuro */
+    color: #FFFFFF;
+    border: 1px solid #003366;
+    box-shadow: 3px 3px 5px rgba(0, 51, 102, 0.4); /* Sombreamento Azul Escuro */
+}
+
+/* Botão Cancelar */
+#form-reserva button[type="button"] {
+    background-color: #FFFFFF; 
+    color: #003366;
+    border: 1px solid #003366;
+}
+
+#form-reserva button[type="submit"]:hover {
+    background-color: #004488;
+}
+
+#form-reserva button[type="button"]:hover {
+    background-color: #f0f0f0;
+}

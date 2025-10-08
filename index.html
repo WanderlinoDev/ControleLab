@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Controle LAB | Agendamento Mensal</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <header>
+        <h1>RESERVA DE LABORATÓRIO DE INFORMÁTICA</h1>
+        <h2 id="nome-mes">CARREGANDO...</h2>
+    </header>
+    
+    <main>
+        <div id="calendario-grid">
+            <div id="dias-da-semana">
+                <div>Dom</div>
+                <div>Seg</div>
+                <div>Ter</div>
+                <div>Qua</div>
+                <div>Qui</div>
+                <div>Sex</div>
+                <div>Sáb</div>
+            </div>
+            <div id="dias-do-mes"></div>
+        </div>
+        
+        <div id="horarios-detalhe">
+            <h3>Selecione um dia no calendário.</h3>
+            <p>Clique em um dia para ver a disponibilidade de horários.</p>
+            
+            <div id="lista-horarios">
+                </div>
+        </div>
+    </main>
+    
+    <div id="modal-reserva">
+        <h3>Agendar Laboratório</h3>
+        <p>Dia/Horário: <span id="info-horario"></span></p>
+        <form id="form-reserva">
+            <label for="nome-professor">Professor(a):</label>
+            <input type="text" id="nome-professor" required><br><br>
+
+            <label for="nome-turma">Turma:</label>
+            <input type="text" id="nome-turma" required><br><br>
+
+            <button type="submit">Confirmar Agendamento</button>
+            <button type="button" onclick="document.getElementById('modal-reserva').style.display = 'none'">Cancelar</button>
+        </form>
+    </div>
+
+    <script src="script.js" defer></script>
+</body>
+</html>
