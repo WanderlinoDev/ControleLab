@@ -13,8 +13,8 @@ body {
     background-color: #003366; /* Azul escuro */
     color: white;
     text-align: center;
-    padding: 30px 0;
-    margin-bottom: 20px;
+    padding: 20px 0; /* AJUSTADO */
+    margin-bottom: 10px; /* AJUSTADO */
     border-bottom: 5px solid #FFD700; /* Linha amarela */
 }
 #header-topo h1 {
@@ -62,7 +62,7 @@ main {
     border: 1px solid #ccc;
     border-top: none;
     border-radius: 0 0 8px 8px;
-    background-color: white; /* Fundo branco para dias de semana */
+    background-color: white; 
 }
 
 /* Estilo de cada célula de dia */
@@ -74,8 +74,14 @@ main {
     min-height: 80px; 
     cursor: pointer;
     transition: background-color 0.2s;
-    /* Cor padrão para dias de semana */
-    color: #0056b3; /* Número Azul Escuro */
+    color: #0056b3; /* Cor do número (Azul Escuro Padrão) */
+    background-color: white; /* Fundo padrão */
+    
+    /* Centraliza o número e o texto de bloqueio */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
 
 .dia-celula.vazio {
@@ -89,26 +95,16 @@ main {
     background-color: #003366; /* Fundo azul escuro */
     color: #FFD700; /* Número Amarelo */
     font-weight: bold;
+    cursor: default;
+}
+/* Garante que o número dentro do fim de semana seja amarelo */
+.dia-celula.fim-semana span {
+    color: #FFD700;
 }
 
-/* 🟡 FERIADO - Fundo Amarelo, Borda Azul Escuro */
-.dia-celula.feriado {
-    background-color: #FFD700; /* Fundo Amarelo */
-    color: #003366; /* Número Azul Escuro */
-    font-weight: bold;
-    cursor: default; /* Bloqueia o cursor */
-    /* Borda Azul Escuro */
-    border: 2px solid #003366;
-}
 
-.dia-celula:not(.vazio):not(.fim-semana):not(.feriado):hover {
+.dia-celula:not(.vazio):not(.fim-semana):not(.bloqueio-dia-inteiro):hover {
     background-color: #e6e6e6; 
-}
-
-/* REMOÇÃO DO QUADRADO AZUL INDESEJADO (foco/outline) */
-.dia-celula:focus {
-    outline: none;
-    box-shadow: none;
 }
 
 /* Estilos de seleção */
@@ -117,13 +113,65 @@ main {
     background-color: #fffacd;
 }
 
-/* Estilo para a caixa de controle de mês (Seletor) */
-#controle-mes {
-    text-align: center;
-    margin: 20px 0 10px 0; 
+/* ======================================= */
+/* 🆕 ESTILOS DE BLOQUEIO DE DIAS INTEIROS (Feriado Nacional/Municipal, Recesso) */
+/* ======================================= */
+
+/* Estilo Base para dias bloqueados (contém border, flex properties) */
+.dia-celula.bloqueio-dia-inteiro {
+    /* Cor de fundo será definida pelas classes específicas abaixo */
+    color: #003366; /* Texto Azul Escuro */
+    font-weight: bold;
+    cursor: default; /* Impede o cursor de clique */
+    border: 2px solid #003366; /* Borda Azul Escuro */
+    
+    /* Garante que o número e o texto fiquem centralizados */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
 
-/* Estilo do seletor de mês */
+/* 🟢 FUNDO PARA RECESSO */
+.dia-celula.recesso-dia-inteiro {
+    background-color: #baec80; /* Verde Claro */
+    color: #003366; /* Mantém o texto azul escuro para contraste */
+}
+/* Garante que o número dentro do recesso seja azul escuro */
+.dia-celula.recesso-dia-inteiro span {
+    color: #003366; 
+}
+
+
+/* 🔴 FUNDO PARA FERIADO (Nacional ou Municipal) */
+.dia-celula.feriado-dia-inteiro {
+    background-color: #e35d6a; /* Vermelho/Rosa forte */
+    color: white; /* Texto branco para contraste no fundo vermelho */
+    border: 2px solid #cc0000;
+}
+/* Garante que o número e a info de bloqueio dentro do feriado sejam brancos */
+.dia-celula.feriado-dia-inteiro span, 
+.dia-celula.feriado-dia-inteiro .info-bloqueio {
+    color: white; 
+}
+
+/* Estilo para a informação extra do bloqueio (Recesso, Feriado Municipal, etc.) */
+.dia-celula.bloqueio-dia-inteiro .info-bloqueio {
+    font-size: 0.75em; /* Fonte menor */
+    font-weight: normal;
+    margin-top: 5px;
+    line-height: 1; 
+}
+
+
+/* ======================================= */
+/* ESTILO: SELETOR DE MÊS */
+/* ======================================= */
+#controle-mes {
+    text-align: center;
+    margin: 10px 0 5px 0; /* AJUSTADO */
+}
+
 #seletor-mes {
     padding: 10px 20px;
     font-size: 1.1em;
@@ -134,8 +182,9 @@ main {
     color: #003366; 
 }
 
+
 /* ======================================= */
-/* 🆕 ESTILO NOVO: SELETOR DE RECURSO */
+/* ESTILO: SELETOR DE RECURSO (Botões) */
 /* ======================================= */
 #seletor-recurso {
     text-align: center;
@@ -148,9 +197,9 @@ main {
 }
 
 .selector-group {
-    display: inline-flex; /* Para agrupar os itens */
+    display: inline-flex; 
     border-radius: 8px;
-    overflow: hidden; /* Garante que a borda do grupo seja suave */
+    overflow: hidden; 
     box-shadow: 0 2px 5px rgba(0,0,0,0.1);
 }
 
@@ -170,13 +219,12 @@ main {
     background-color: #dee2e6;
 }
 
-/* Estilo do item SELECIONADO (quando o input:checked está adjacente) */
+/* Estilo do item SELECIONADO */
 #seletor-recurso input[type="radio"]:checked + .selector-item {
     background-color: #003366; /* Fundo Azul Escuro */
     color: #FFD700; /* Texto Amarelo */
     border-color: #003366;
 }
-/* FIM ESTILO NOVO */
 
 
 /* ======================================= */
@@ -189,6 +237,10 @@ main {
     padding: 20px;
     border-radius: 8px;
     box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+#horarios-detalhe h3 {
+    color: #003366;
 }
 
 .horario {
@@ -212,7 +264,7 @@ main {
     background-color: #ccffcc; 
 }
 
-/* 🟥 BLOQUEIO TÉCNICO E FERIADO */
+/* 🟥 BLOQUEIO TÉCNICO, RECESSO E FERIADO */
 .horario.bloqueio-tecnico {
     background-color: #ffcccc; 
     color: #cc0000;
@@ -250,7 +302,11 @@ main {
     z-index: 1000;
 }
 
-/* ESTILO PARA OS CAMPOS DE TEXTO (INPUTS) */
+#modal-reserva h3 {
+    color: #003366;
+    margin-top: 0;
+}
+
 #modal-reserva input[type="text"] {
     width: 90%; 
     padding: 10px;
@@ -262,7 +318,6 @@ main {
     transition: border-color 0.2s, box-shadow 0.2s;
 }
 
-/* Efeito de FOCO nos inputs */
 #modal-reserva input[type="text"]:focus {
     border-color: #0056b3; 
     outline: none;
