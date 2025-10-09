@@ -9,9 +9,10 @@ const HORARIOS = [
 const NOMES_DIAS = ["Domingo", "Segunda-feira", "Terça-feira", "Quarta-feira", "Quinta-feira", "Sexta-feira", "Sábado"];
 const NOME_MESES = ["Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"];
 
-// VARIÁVEIS GLOBAIS PARA CONTROLE DE MÊS/ANO VISUALIZADO
-let anoVisualizado = new Date().getFullYear(); // Começa no ano atual
-let mesVisualizado = new Date().getMonth();   // Começa no mês atual (0=Jan, 11=Dez)
+// VARIÁVEIS GLOBAIS PARA CONTROLE DE MÊS/ANO VISUALIZADO E RECURSO
+let anoVisualizado = new Date().getFullYear(); 
+let mesVisualizado = new Date().getMonth();  
+let recursoAtual = 'Laboratorio'; // Começa com Laboratório
 
 // 🛑 REGRAS: FERIADOS NACIONAIS (2025)
 const FERIADOS_NAIONAIS = [
@@ -19,54 +20,72 @@ const FERIADOS_NAIONAIS = [
     "2025-04-21", 
     "2025-05-01", 
     "2025-09-07", 
-    "2025-10-12", // 12 de Outubro
+    "2025-10-12", 
     "2025-11-02", 
     "2025-11-15", 
     "2025-12-25" 
 ];
 
 
-// 🛑 REGRAS DE BLOQUEIO FIXO SEMANAL (0=Dom, 1=Seg, ..., 5=Sex)
-const BLOQUEIOS_FIXOS_SEMANAIS = [
-    // Segunda-feira (1)
-    { diaSemana: 1, horario: "14:05-14:55" }, 
-    { diaSemana: 1, horario: "14:55-15:45" }, 
-    
-    // Terça-feira (2)
-    { diaSemana: 2, horario: "07:50-08:40" }, 
-    { diaSemana: 2, horario: "08:40-09:30" }, 
-    { diaSemana: 2, horario: "09:45-10:35" }, 
-    { diaSemana: 2, horario: "10:35-11:25" }, 
-    { diaSemana: 2, horario: "13:15-14:05" }, 
-    { diaSemana: 2, horario: "14:05-14:55" }, 
-    
-    // Quarta-feira (3)
-    { diaSemana: 3, horario: "08:40-09:30" }, 
-    { diaSemana: 3, horario: "09:45-10:35" },
-    { diaSemana: 3, horario: "11:25-12:15" }, 
-    { diaSemana: 3, horario: "13:15-14:05" }, 
-    { diaSemana: 3, horario: "14:05-14:55" }, 
-    { diaSemana: 3, horario: "14:55-15:45" }, 
-    
-    // Quinta-feira (4)  
-    { diaSemana: 4, horario: "11:25-12:15" }, 
-    { diaSemana: 4, horario: "13:15-14:05" }, 
-    { diaSemana: 4, horario: "14:05-14:55" }, 
-
-    
-    // Sexta-feira (5)
-    { diaSemana: 5, horario: "11:25-12:15" }, 
-    { diaSemana: 5, horario: "13:15-14:05" },  
-];
+// 🛑 REGRAS DE BLOQUEIO FIXO POR RECURSO
+const regrasPorRecurso = {
+    // Regras de Bloqueio para o Laboratório (Bloqueios Fixos Semanais - Técnico)
+    Laboratorio: [
+        { diaSemana: 1, horario: "14:05-14:55" }, 
+        { diaSemana: 1, horario: "14:55-15:45" }, 
+        { diaSemana: 2, horario: "07:50-08:40" }, 
+        { diaSemana: 2, horario: "08:40-09:30" }, 
+        { diaSemana: 2, horario: "09:45-10:35" }, 
+        { diaSemana: 2, horario: "10:35-11:25" }, 
+        { diaSemana: 2, horario: "13:15-14:05" }, 
+        { diaSemana: 2, horario: "14:05-14:55" }, 
+        { diaSemana: 3, horario: "08:40-09:30" }, 
+        { diaSemana: 3, horario: "09:45-10:35" },
+        { diaSemana: 3, horario: "11:25-12:15" }, 
+        { diaSemana: 3, horario: "13:15-14:05" }, 
+        { diaSemana: 3, horario: "14:05-14:55" }, 
+        { diaSemana: 3, horario: "14:55-15:45" }, 
+        { diaSemana: 4, horario: "08:40-09:30" }, 
+        { diaSemana: 4, horario: "09:45-10:35" }, 
+        { diaSemana: 4, horario: "11:25-12:15" }, 
+        { diaSemana: 4, horario: "13:15-14:05" }, 
+        { diaSemana: 4, horario: "14:05-14:55" }, 
+        { diaSemana: 4, horario: "14:55-15:45" }, 
+        { diaSemana: 5, horario: "11:25-12:15" }, 
+        { diaSemana: 5, horario: "13:15-14:05" }, 
+        { diaSemana: 5, horario: "14:05-14:55" } 
+    ],
+    // Regras de Bloqueio para o Projetor (Nenhum bloqueio fixo semanal)
+    Projetor: [] 
+};
 
 // SIMULAÇÃO DO BANCO DE DADOS (BD): Agendamentos feitos
+// 🆕 Agora inclui o campo 'recurso' para distinguir
 let agendamentosDB = [
-    { professor: "Prof. Ana", turma: "EJA", data: "2025-10-08", horario: "07:00-07:50" }
+    { professor: "Prof. Ana", turma: "EJA", data: "2025-10-08", horario: "07:00-07:50", recurso: "Laboratorio" }
+    // Novo agendamento de exemplo para Projetor
+    // { professor: "Prof. Beto", turma: "201", data: "2025-10-09", horario: "10:35-11:25", recurso: "Projetor" }
 ];
 
 // Variáveis de estado para o agendamento em andamento
 let dataSelecionada = '';
 let horarioSelecionado = '';
+
+/**
+ * 🆕 FUNÇÃO CHAVE: Altera o recurso atual e atualiza a tela
+ */
+function selecionarRecurso() {
+    const radioLaboratorio = document.getElementById('radio-laboratorio');
+    recursoAtual = radioLaboratorio.checked ? 'Laboratorio' : 'Projetor';
+    
+    // Atualiza o título do cabeçalho
+    const header = document.getElementById('header-topo').querySelector('h1');
+    header.textContent = `RESERVA DE ${recursoAtual.toUpperCase()} DE INFORMÁTICA`;
+
+    // Limpa a visualização de horários e renderiza o calendário com as novas regras
+    document.getElementById('horarios-detalhe').innerHTML = '<h3>Selecione um dia no calendário.</h3><p>Clique em um dia para ver a disponibilidade de horários.</p>';
+    renderizarTabela();
+}
 
 
 /**
@@ -85,12 +104,15 @@ function getDiasDoMes() {
     }
 
     // 2. Adiciona os dias reais do mês
+    const bloqueiosSemanais = regrasPorRecurso[recursoAtual]; // Pega as regras do recurso atual
+
     for (let i = 1; i <= ultimoDia; i++) {
         const data = new Date(ano, mes, i);
         const diaSemanaIndex = data.getDay(); 
         const dataFormatada = `${ano}-${(mes + 1).toString().padStart(2, '0')}-${i.toString().padStart(2, '0')}`;
         
-        const temBloqueio = BLOQUEIOS_FIXOS_SEMANAIS.some(b => b.diaSemana === diaSemanaIndex);
+        // Verifica bloqueios fixos baseados no recurso atual
+        const temBloqueio = bloqueiosSemanais.some(b => b.diaSemana === diaSemanaIndex);
 
         dias.push({
             data: dataFormatada,
@@ -117,14 +139,12 @@ function preencherSeletorMes() {
     
     const dataInicial = new Date(new Date().getFullYear(), new Date().getMonth(), 1);
     
-    // Cria 13 opções (Mês atual + 12 próximos meses)
     for (let i = 0; i < 13; i++) {
         const data = new Date(dataInicial.getFullYear(), dataInicial.getMonth() + i, 1);
         const nomeMes = NOME_MESES[data.getMonth()];
         const ano = data.getFullYear();
         const mesIndex = data.getMonth();
         
-        // Bloqueia Janeiro do ano atual (simulando férias)
         const isDisabled = (mesIndex === 0 && ano === new Date().getFullYear()); 
         
         const valor = `${ano}-${mesIndex}`;
@@ -184,9 +204,6 @@ function renderizarTabela() {
             if (diaInfo.isFimSemana) {
                 classe += ' fim-semana';
             }
-            if (diaInfo.temBloqueioFixo) {
-                classe += ' tem-bloqueio'; 
-            }
             // 🟡 Se for feriado, adiciona a classe 'feriado'
             if (isFeriado) {
                  classe += ' feriado'; 
@@ -224,28 +241,31 @@ function mostrarHorariosDoDia(data) {
     let htmlHorarios = `<h3>Horários para ${infoDia.diaSemanaNome}, ${infoDia.diaNumero}</h3>`;
     
     const isFeriado = FERIADOS_NAIONAIS.includes(data);
+    const bloqueiosSemanais = regrasPorRecurso[recursoAtual]; // Regras do recurso selecionado
 
     HORARIOS.forEach(horario => {
         let classe = 'horario';
         let status = 'Livre';
         
-        const isBloqueadoFixo = BLOQUEIOS_FIXOS_SEMANAIS.some(b => 
+        // Verifica bloqueio fixo semanal (só afeta o Laboratório)
+        const isBloqueadoFixo = bloqueiosSemanais.some(b => 
             b.diaSemana === diaSemanaIndex && b.horario === horario
         );
-        const reserva = agendamentosDB.find(r => r.data === data && r.horario === horario);
+        // Verifica se já existe agendamento para ESTE RECURSO e ESTA DATA/HORÁRIO
+        const reserva = agendamentosDB.find(r => r.data === data && r.horario === horario && r.recurso === recursoAtual);
         
         if (horario === "Recreio" || horario === "Almoço") {
             // ⬜ INTERVALO
             classe += ' intervalo';
             status = horario; 
-        } else if (isFeriado) { 
-            // 🟥 Bloqueia todos os horários do feriado
+        } else if (isFeriado || infoDia.isFimSemana) { 
+            // 🟥 Bloqueia feriados e fins de semana para AMBOS os recursos
             classe += ' bloqueio-tecnico';
-            status = 'FERIADO NACIONAL';
+            status = isFeriado ? 'FERIADO NACIONAL' : 'FIM DE SEMANA';
         } else if (isBloqueadoFixo) {
-            // 🟥 Bloqueio Fixo
+            // 🟥 Bloqueio Fixo (Apenas Laboratório)
             classe += ' bloqueio-tecnico';
-            status = 'CURSO TÉCNICO EM INFORMÁTICA.';
+            status = 'TÉCNICO INFO.';
         } else if (reserva) {
             // 🟦 Agendado
             classe += ' agendado';
@@ -275,6 +295,8 @@ function abrirModalAgendamento(data, horario) {
     const infoDia = getDiasDoMes().find(d => d.data === data);
     const dataDisplay = `${infoDia.diaSemanaNome}, ${infoDia.diaNumero} - ${horario}`;
     
+    // Atualiza o título do modal com o recurso atual
+    document.getElementById('modal-reserva').querySelector('h3').textContent = `Agendar ${recursoAtual}`;
     document.getElementById('info-horario').innerText = dataDisplay;
     document.getElementById('modal-reserva').style.display = 'block';
 }
@@ -285,8 +307,8 @@ document.addEventListener('DOMContentLoaded', () => {
     // 1. Tenta preencher o seletor de meses
     preencherSeletorMes();
     
-    // 2. Carrega o calendário padrão
-    renderizarTabela(); 
+    // 2. Garante que o recurso inicial esteja selecionado e o calendário seja renderizado
+    selecionarRecurso();
     
     // 3. Listener do formulário de submissão
     const form = document.getElementById('form-reserva');
@@ -301,7 +323,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 professor: professor,
                 turma: turma,
                 data: dataSelecionada,
-                horario: horarioSelecionado
+                horario: horarioSelecionado,
+                recurso: recursoAtual // 🆕 Salva o recurso!
             };
 
             agendamentosDB.push(novoAgendamento);
@@ -313,7 +336,7 @@ document.addEventListener('DOMContentLoaded', () => {
             renderizarTabela(); 
             mostrarHorariosDoDia(dataSelecionada); 
 
-            alert(`Agendado com sucesso! Horário bloqueado para ${professor}.`);
+            alert(`Agendado com sucesso! Horário bloqueado para ${professor} no ${recursoAtual}.`);
         });
     }
 });

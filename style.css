@@ -97,7 +97,7 @@ main {
     color: #003366; /* Número Azul Escuro */
     font-weight: bold;
     cursor: default; /* Bloqueia o cursor */
-    /* 🆕 Borda Azul Escuro */
+    /* Borda Azul Escuro */
     border: 2px solid #003366;
 }
 
@@ -120,19 +120,64 @@ main {
 /* Estilo para a caixa de controle de mês (Seletor) */
 #controle-mes {
     text-align: center;
-    margin: 20px 0;
+    margin: 20px 0 10px 0; 
 }
 
-/* ✅ CORREÇÃO: Estilo do seletor de mês */
+/* Estilo do seletor de mês */
 #seletor-mes {
     padding: 10px 20px;
     font-size: 1.1em;
     border-radius: 5px;
     border: 1px solid #003366; 
     font-weight: bold;
-    background-color: white; /* Fundo branco */
-    color: #003366; /* Texto azul escuro */
+    background-color: white; 
+    color: #003366; 
 }
+
+/* ======================================= */
+/* 🆕 ESTILO NOVO: SELETOR DE RECURSO */
+/* ======================================= */
+#seletor-recurso {
+    text-align: center;
+    margin: 15px 0 25px 0;
+}
+
+/* Esconde os radio buttons originais */
+#seletor-recurso input[type="radio"] {
+    display: none;
+}
+
+.selector-group {
+    display: inline-flex; /* Para agrupar os itens */
+    border-radius: 8px;
+    overflow: hidden; /* Garante que a borda do grupo seja suave */
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.selector-item {
+    padding: 12px 20px;
+    font-size: 1em;
+    font-weight: bold;
+    cursor: pointer;
+    background-color: #e9ecef; /* Cinza claro (Padrão) */
+    color: #333;
+    border: 1px solid #ced4da;
+    transition: all 0.2s;
+}
+
+/* Estilo de item não selecionado ao passar o mouse */
+.selector-item:hover {
+    background-color: #dee2e6;
+}
+
+/* Estilo do item SELECIONADO (quando o input:checked está adjacente) */
+#seletor-recurso input[type="radio"]:checked + .selector-item {
+    background-color: #003366; /* Fundo Azul Escuro */
+    color: #FFD700; /* Texto Amarelo */
+    border-color: #003366;
+}
+/* FIM ESTILO NOVO */
+
 
 /* ======================================= */
 /* DETALHE DE HORÁRIOS (#horarios-detalhe) */

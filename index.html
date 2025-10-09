@@ -3,14 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Controle | Reserva Laboratório de Informática</title>
-     <link rel="shortcut icon" type="image/x-icon" href="./imagens/Icone.ico">
+    <title>SIAR</title>
+    <link rel="shortcut icon" type="image/x-icon" href="./imagens/Icone.ico">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
     <header id="header-topo">
-        <h1>CONTROLE | RESERVA LABORATÓRIO DE INFORMÁTICA</h1>
+        <h1>SIAR - SISTEMA DE AGENDAMENTO DE RECURSOS</h1>
+        <h1>EEDCAM</h1>
     </header>
     
     <main>
@@ -18,6 +19,15 @@
             <select id="seletor-mes" onchange="trocarMes(this.value)"></select>
         </div>
 
+        <div id="seletor-recurso">
+            <div class="selector-group">
+                <input type="radio" name="recurso" value="Laboratorio" id="radio-laboratorio" checked onchange="selecionarRecurso()">
+                <label for="radio-laboratorio" class="selector-item">Laboratório de Informática</label>
+                
+                <input type="radio" name="recurso" value="Projetor" id="radio-projetor" onchange="selecionarRecurso()">
+                <label for="radio-projetor" class="selector-item">Projetor | Notebook</label>
+            </div>
+        </div>
         <div id="calendario-layout">
             <div id="calendario-grid-container">
                 <div id="dias-da-semana">
