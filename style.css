@@ -1,5 +1,5 @@
 /* ===========================================================
-   ESTILOS PRINCIPAIS - CALENDÁRIO DE AGENDAMENTO (CORRIGIDO)
+   ESTILOS GERAIS - SISTEMA DE AGENDAMENTO ESCOLAR
    =========================================================== */
 
 body {
@@ -10,15 +10,60 @@ body {
     color: #003366;
 }
 
-h1, h2, h3 {
-    color: #003366;
+/* ===========================================================
+   CABEÇALHO
+   =========================================================== */
+#header-topo {
+    background-color: #003366; /* mesmo azul do recurso selecionado */
+    color: #FFD700; /* dourado do tema */
+    text-align: center;
+    padding: 30px 15px;
+    border-bottom: 5px solid #FFD700;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
 }
 
+#header-topo h1 {
+    font-size: 2rem;
+    font-weight: 900;
+    margin-bottom: 8px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: #FFD700; /* dourado */
+    text-shadow: 1px 1px 4px rgba(0,0,0,0.3);
+}
+
+#header-topo p {
+    font-size: 1rem;
+    color: #ffffff; /* branco suave */
+    opacity: 0.9;
+    text-shadow: 1px 1px 3px rgba(0,0,0,0.3);
+}
+
+/* ===========================================================
+   TÍTULO DO MÊS
+   =========================================================== */
 #mes-ano-atual {
     text-align: center;
-    font-size: 1.5rem;
+    font-size: 1.6rem;
     font-weight: bold;
+    color: #003366;
     margin: 10px 0;
+}
+
+/* ===========================================================
+   GRADE DE CALENDÁRIO
+   =========================================================== */
+
+#dias-da-semana {
+    background-color: #e0e0e0; 
+    border-radius: 6px;
+    padding: 4px 0;
+    margin-bottom: 8px; 
+}
+
+#dias-da-semana > div {
+    color: #003366; 
+    font-weight: 700;
 }
 
 #dias-do-mes {
@@ -58,27 +103,27 @@ h1, h2, h3 {
 }
 
 /* ===========================================================
-   ESTILOS DE DIAS BLOQUEADOS
+   ESTILOS DE DIAS BLOQUEADOS E FINS DE SEMANA
    =========================================================== */
-.fim-semana, .feriado-dia-inteiro, .recesso-dia-inteiro {
-    cursor: not-allowed !important;
-    opacity: 0.7;
-    pointer-events: none;
-}
-
 .fim-semana {
-    background-color: #003366;
-    color: #FFFFFF;
+    background-color: #003366 !important; 
+    color: #FFD700 !important;           
+    cursor: not-allowed !important;
+    opacity: 0.95;
+    pointer-events: none;
+    font-weight: bold;
 }
 
 .feriado-dia-inteiro {
-    background-color: #f15050ff;
-    color: #003366;
+    background-color: #f15050ff !important; /* vermelho */
+    color: #FFFFFF !important;
+    font-weight: bold;
 }
 
 .recesso-dia-inteiro {
-    background-color: #a6f5a6ff;
-    color: #003366;
+    background-color: #2ecc71 !important; /* verde vibrante */
+    color: #FFFFFF !important;
+    font-weight: bold;
 }
 
 .dia-celula.selecionado {
@@ -98,21 +143,9 @@ h1, h2, h3 {
     text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
 }
 
-#cabecalho-semana {
-    display: grid;
-    grid-template-columns: repeat(7, 1fr);
-    background-color: #003366;
-    color: white;
-    border-radius: 10px 10px 0 0;
-}
-
-#cabecalho-semana div {
-    text-align: center;
-    padding: 10px 0;
-    font-weight: bold;
-    font-size: 1rem;
-}
-
+/* ===========================================================
+   DETALHES DOS HORÁRIOS
+   =========================================================== */
 #detalhe-container {
     background-color: #ffffff;
     border-radius: 10px;
@@ -139,8 +172,9 @@ h1, h2, h3 {
     transition: all 0.2s ease-in-out;
 }
 
-#horarios-lista div:hover {
-    background-color: #FFD70044;
+/* ➡️ NOVO: APLICA HOVER APENAS em slots LÍVRES */
+#horarios-lista div.livre:hover {
+    background-color: #FFD70033;
     transform: scale(1.02);
 }
 
@@ -148,8 +182,31 @@ h1, h2, h3 {
     background-color: #CC0000;
     color: white;
     cursor: not-allowed;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    /* ✅ CORREÇÃO: Remove o efeito de hover/transição/escala */
+    transition: none; 
+    transform: none;
 }
 
+/* Estilo para a nova faixa de informação (Professor/Turma) */
+.agendamento-info-detalhe {
+    background-color: #FFD700; 
+    color: #003366; 
+    
+    font-size: 0.95rem;
+    font-weight: bold;
+    padding: 8px 10px;
+    border-radius: 6px;
+    margin-top: 5px; 
+    width: 90%; 
+    text-align: center;
+    line-height: 1.2;
+}
+
+/* Slots de Recreio/Almoço */
 #horarios-lista div.ocupado:nth-child(4),
 #horarios-lista div.ocupado:nth-child(8) {
     background-color: #b7b8b8ff !important;
@@ -159,6 +216,9 @@ h1, h2, h3 {
     cursor: default;
     text-transform: uppercase;
     letter-spacing: 0.5px;
+    /* ✅ CORREÇÃO: Remove o efeito de hover/transição/escala */
+    transition: none;
+    transform: none;
 }
 
 #horarios-lista div.livre {
@@ -167,10 +227,9 @@ h1, h2, h3 {
     color: #003366;
 }
 
-#horarios-lista div.livre:hover {
-    background-color: #FFD70033;
-}
-
+/* ===========================================================
+   BOTÕES E NAVEGAÇÃO
+   =========================================================== */
 .botao-navegacao {
     background-color: #003366;
     color: #FFFFFF;
@@ -187,6 +246,9 @@ h1, h2, h3 {
     transform: scale(1.05);
 }
 
+/* ===========================================================
+   SELETOR DE RECURSOS
+   =========================================================== */
 #recurso-selector {
     display: flex;
     flex-wrap: wrap;
@@ -211,6 +273,20 @@ h1, h2, h3 {
     color: #FFD700;
 }
 
+/* ===========================================================
+   MODAL
+   =========================================================== */
+#modal-reserva {
+    backdrop-filter: blur(2px);
+}
+
+#modal-reserva h3 {
+    color: #003366;
+}
+
+/* ===========================================================
+   AJUSTES RESPONSIVOS
+   =========================================================== */
 .hidden {
     display: none !important;
 }
@@ -226,7 +302,11 @@ h1, h2, h3 {
         padding: 4px;
     }
 
-    #cabecalho-semana div {
+    #header-topo h1 {
+        font-size: 1.5rem;
+    }
+
+    #header-topo p {
         font-size: 0.9rem;
     }
 }
