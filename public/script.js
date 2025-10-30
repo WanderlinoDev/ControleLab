@@ -6,7 +6,8 @@
 const HORARIOS = [
   "07:00-07:50", "07:50-08:40", "08:40-09:30", "Recreio",
   "09:45-10:35", "10:35-11:25", "11:25-12:15", "Almoço",
-  "13:15-14:05", "14:05-14:55", "14:55-15:45","16:00-17:05"
+  "13:15-14:05", "14:05-14:55", "14:55-15:45","16:00-17:05", "18:00 - 18:50",
+  "18:50 - 19:40", "19:40 - 20:30", "Intervalo", "20:45 - 21:35", "21:35 - 22:25"
 ];
 
 // BLOQUEIOS FIXOS POR RECURSO
@@ -250,7 +251,7 @@ function mostrarHorariosDoDia(dateObj) {
   HORARIOS.forEach(horario => {
     const item = document.createElement("div");
 
-    if (horario === "Recreio" || horario === "Almoço") {
+    if (horario === "Recreio" || horario === "Almoço"|| horario === "Intervalo") {
       item.className = "p-2 border rounded-md text-center ocupado";
       item.textContent = horario;
       lista.appendChild(item);
