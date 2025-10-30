@@ -206,11 +206,7 @@ body {
     line-height: 1.2;
 }
 
-<<<<<<< HEAD
-/* Slots de Recreio/Almoço/Intervalo */
-=======
 /* Slots de Recreio/Almoço */
->>>>>>> a3fef9bbf97c5db21ed900239bdcae4ed5fa6af6
 #horarios-lista div.ocupado:nth-child(4),
 #horarios-lista div.ocupado:nth-child(8) {
     background-color: #b7b8b8ff !important;
