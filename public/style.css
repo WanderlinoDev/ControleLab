@@ -115,12 +115,12 @@ body {
 }
 
 .feriado-dia-inteiro {
-    background-color: rgb(240, 16, 16) !important; /* vermelho */    
+    background-color: #003366 !important; /* vermelho */    
     font-weight: bold;
 }
 
 .recesso-dia-inteiro {
-    background-color: #2ecc71 !important; /* verde vibrante */
+    background-color: #003366 !important; /* verde vibrante */
     color: #FFFFFF !important;
     font-weight: bold;
 }
@@ -179,7 +179,7 @@ body {
 }
 
 #horarios-lista div.ocupado {
-    background-color: #f70202;
+    background-color: #003366;
     color: white;
     cursor: not-allowed;
     display: flex;
@@ -225,7 +225,7 @@ body {
 }
 
 #horarios-lista div.livre {
-    background-color: #d8f0d5;
+    background-color: #fff;
     border-color: #003366;
     color: #003366;
 }
