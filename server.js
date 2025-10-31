@@ -6,6 +6,14 @@ import express from "express";
 import cors from "cors";
 import dotenv from "dotenv";
 import pkg from "pg";
+// ➡️ IMPORTAÇÕES PARA TRATAR ARQUIVOS E CAMINHOS
+import path from "path";
+import { fileURLToPath } from 'url';
+import { dirname } from 'path';
+
+// Configuração para obter o __dirname no ambiente ES Modules
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
 
 dotenv.config();
 const { Pool } = pkg;
@@ -31,11 +39,30 @@ app.use(cors());
 app.use(express.json());
 
 // ===========================================================
-// ROTA 1 - TESTE BÁSICO
+// BLOCO DE ARQUIVOS ESTÁTICOS
+// ➡️ O Express.static é ESSENCIAL para servir CSS, JS, imagens, etc.
+// 🔴 CORREÇÃO 1: Aponta para a subpasta 'public', conforme o caminho do Live Server.
+app.use(express.static(path.join(__dirname, 'public')));
+// ===========================================================
+
+// ===========================================================
+// ➡️ ROTA RAIZ (/) PARA SERVIR O FRONTEND
+// Esta rota garante que o index.html seja entregue quando o usuário acessar /
 // ===========================================================
 app.get("/", (req, res) => {
+  // 🔴 CORREÇÃO 2: Envia o index.html a partir da pasta 'public'.
+  res.sendFile(path.join(__dirname, 'public', 'index.html'));
+});
+
+
+// ===========================================================
+// ROTA DE STATUS DA API (Antiga ROTA 1)
+// Rota dedicada para testar se a API está online.
+// ===========================================================
+app.get("/status", (req, res) => {
   res.send("🚀 API de Agendamentos está online!");
 });
+
 
 // ===========================================================
 // ROTA 2 - LISTAR RECURSOS DISPONÍVEIS

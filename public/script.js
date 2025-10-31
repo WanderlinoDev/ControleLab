@@ -6,7 +6,7 @@
 const HORARIOS = [
   "07:00-07:50", "07:50-08:40", "08:40-09:30", "Recreio",
   "09:45-10:35", "10:35-11:25", "11:25-12:15", "Almoço",
-  "13:15-14:05", "14:05-14:55", "14:55-15:45","Recreio","16:00-17:00", "18:00 - 18:50",
+  "13:15-14:05", "14:05-14:55", "14:55-15:45","Intervalo","16:00-17:00", "18:00 - 18:50",
   "18:50 - 19:40", "19:40 - 20:30", "Recreio", "20:45 - 21:35", "21:35 - 22:25"
 ];
 
@@ -251,12 +251,15 @@ function mostrarHorariosDoDia(dateObj) {
   HORARIOS.forEach(horario => {
     const item = document.createElement("div");
 
-    if (horario === "Recreio" || horario === "Almoço"|| horario === "Intervalo") {
-      item.className = "p-2 border rounded-md text-center ocupado";
+    // CORREÇÃO FINAL NO SCRIPT.JS (FUNÇÃO mostrarHorariosDoDia)
+    if (horario.includes("Recreio") || horario.includes("Almoço") || horario.includes("Intervalo")) {
+      // Deixe apenas as classes de layout e a classe 'intervalo'
+      item.className = "p-2 rounded-md text-center intervalo"; 
       item.textContent = horario;
       lista.appendChild(item);
       return;
     }
+// ...
 
     const bloqueadoFixo = bloqueiosFixos.some(r => r.diaSemana === diaSemana && r.horario === horario);
     const bloqueioDia = bloqueiosCalendario[dataSelecionada];

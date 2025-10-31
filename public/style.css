@@ -115,8 +115,7 @@ body {
 }
 
 .feriado-dia-inteiro {
-    background-color: #f15050ff !important; /* vermelho */
-    color: #FFFFFF !important;
+    background-color: rgb(240, 16, 16) !important; /* vermelho */    
     font-weight: bold;
 }
 
@@ -162,8 +161,9 @@ body {
 }
 
 #horarios-lista div {
-    background-color: #f9fafc;
-    border: 1px solid #ccc;
+    color: white;
+    background-color: #003366;
+    border: 1px solid #FFD700;
     border-radius: 8px;
     padding: 10px;
     text-align: center;
@@ -179,7 +179,7 @@ body {
 }
 
 #horarios-lista div.ocupado {
-    background-color: #CC0000;
+    background-color: #f70202;
     color: white;
     cursor: not-allowed;
     display: flex;
@@ -207,26 +207,25 @@ body {
 }
 
 <<<<<<< HEAD
-/* Slots de Recreio/Almoço/Intervalo */
-=======
-/* Slots de Recreio/Almoço */
->>>>>>> a3fef9bbf97c5db21ed900239bdcae4ed5fa6af6
-#horarios-lista div.ocupado:nth-child(4),
-#horarios-lista div.ocupado:nth-child(8) {
-    background-color: #b7b8b8ff !important;
+/* Estilos para Slots de Recreio/Almoço/Intervalo - CLASSE CONSOLIDADA */
+#horarios-lista div.intervalo {
+    /* ** Aumentei a especificidade e garanto as cores ** */
+    background-color: #b7b8b8 !important; /* Cinza para intervalo */
     color: #FFFFFF !important;
+    
     font-weight: bold;
-    border: none;
+    border: none !important; 
     cursor: default;
-    text-transform: uppercase;
+    text-transform: uppercase; 
     letter-spacing: 0.5px;
-    /* ✅ CORREÇÃO: Remove o efeito de hover/transição/escala */
     transition: none;
     transform: none;
+    pointer-events: none;
+    box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.1);
 }
 
 #horarios-lista div.livre {
-    background-color: #e6f7ff;
+    background-color: #d8f0d5;
     border-color: #003366;
     color: #003366;
 }
