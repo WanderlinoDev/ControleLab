@@ -246,7 +246,9 @@ function mostrarHorariosDoDia(dateObj) {
   lista.innerHTML = "";
 
   const diaSemana = dateObj.getDay();
-  const bloqueiosFixos = regrasPorRecurso[recursoAtual] || [];
+  const nomeRecurso = recursoAtual.normalize("NFD").replace(/[\u0300-\u036f]/g, ""); // remove acentos
+  const bloqueiosFixos = regrasPorRecurso[nomeRecurso] || [];
+
 
   HORARIOS.forEach(horario => {
     const item = document.createElement("div");
