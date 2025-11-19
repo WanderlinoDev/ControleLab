@@ -84,10 +84,19 @@ app.get("/api/recursos", async (req, res) => {
 // ===========================================================
 app.get("/api/agendamentos/:id_recurso/:ano/:mes", async (req, res) => {
   const { id_recurso, ano, mes } = req.params;
+// Garantir mês com 2 dígitos
+const mesPadded = String(mes).padStart(2, "0");
 
-  // datas de início e fim do mês solicitado
-  const dataInicio = `${ano}-${mes}-01`;
-  const dataFim = `${ano}-${mes}-31`;
+// Início do mês
+const dataInicio = `${ano}-${mesPadded}-01`;
+
+// Último dia real do mês
+const ultimoDia = new Date(ano, mes, 0).getDate();
+const ultimoDiaPadded = String(ultimoDia).padStart(2, "0");
+
+// Data final corrigida
+const dataFim = `${ano}-${mesPadded}-${ultimoDiaPadded}`;
+
 
   try {
     const queryAgendamentos = `

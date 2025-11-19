@@ -73,11 +73,11 @@ function atualizarTituloCalendario() {
 
 // ✅ NOVO: Função para obter o ID do recurso selecionado
 function getIdRecursoAtual() {
-    const recurso = RECURSOS_DISPONIVEIS.find(r => r.nome === recursoAtual);
-    // Retorna o ID do recurso ou um fallback (ex: 1)
-    return recurso ? recurso.id : 1; 
+    // Compara nomes sem acentuação para evitar problemas como "Laboratório" vs "Laboratorio"
+    const normalize = str => str ? str.normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase() : '';
+    const recurso = RECURSOS_DISPONIVEIS.find(r => normalize(r.nome) === normalize(recursoAtual));
+    return recurso ? recurso.id : (RECURSOS_DISPONIVEIS[0] ? RECURSOS_DISPONIVEIS[0].id : 1);
 }
-
 
 // ===========================================================
 // BLOQUEIOS E RECURSOS
@@ -152,7 +152,6 @@ async function selecionarRecurso(recurso) {
       mostrarHorariosDoDia(new Date(dataSelecionada));
   }
 }
-
 // ===========================================================
 // CALENDÁRIO
 // ===========================================================
